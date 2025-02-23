@@ -34,7 +34,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                               style: Theme.of(context).textTheme.headlineLarge,
                           ),
                           Text(
-                              restaurant.address,
+                              restaurant.city,
                               style: Theme.of(context)
                                   .textTheme
                                   .labelLarge

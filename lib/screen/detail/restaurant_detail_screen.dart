@@ -27,7 +27,7 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
     Future.microtask(() {
       context
           .read<RestaurantDetailProvider>()
-          .fetchRestaurantDetail(widget.restaurantId);
+          .fetchRestaurantDetail(widget.restaurantId.toString());
     });
   }
 

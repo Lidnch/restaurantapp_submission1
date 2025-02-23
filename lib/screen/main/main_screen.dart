@@ -36,6 +36,9 @@ class MainScreen extends StatelessWidget {
               tooltip: "Settings",
             ),
           ],
+          backgroundColor: Colors.teal,
+          selectedItemColor: Colors.orange,
+          unselectedItemColor: Colors.orangeAccent,
       ),
     );
   }
