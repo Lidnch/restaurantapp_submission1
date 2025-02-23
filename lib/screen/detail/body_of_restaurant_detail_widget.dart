@@ -17,7 +17,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
           child: Column(
             children: [
               Image.network(
-                  restaurant.pictureId,
+                  "https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}",
                   fit:  BoxFit.cover,
               ),
               const SizedBox.square(dimension: 16),
