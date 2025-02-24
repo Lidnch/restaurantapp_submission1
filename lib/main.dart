@@ -49,7 +49,7 @@ class MainApp extends StatelessWidget {
       routes: {
         NavigationRoute.mainRoute.name: (context) => const MainScreen(),
         NavigationRoute.detailRoute.name: (context) => RestaurantDetailScreen(
-          restaurantId: ModalRoute.of(context)?.settings.arguments as int,
+          restaurantId: ModalRoute.of(context)?.settings.arguments as String,
         ),
       },
     );

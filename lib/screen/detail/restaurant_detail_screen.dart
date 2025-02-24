@@ -8,7 +8,7 @@ import 'body_of_restaurant_detail_widget.dart';
 
 
 class RestaurantDetailScreen extends StatefulWidget {
-  final int restaurantId;
+  final String restaurantId;
 
   const RestaurantDetailScreen({
     super.key,
