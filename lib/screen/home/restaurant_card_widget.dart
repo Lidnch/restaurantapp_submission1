@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/model/restaurant.dart';
+import 'package:restaurant_app/model/restaurant_list.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final Restaurant restaurant;
+  final RestaurantList restaurant;
   final Function() onTap;
   
   const RestaurantCard({
@@ -32,9 +32,12 @@ class RestaurantCard extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                      "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
-                      fit:  BoxFit.cover,
+                  child: Hero(
+                    tag: restaurant.pictureId,
+                    child: Image.network(
+                        "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
+                        fit:  BoxFit.cover,
+                    ),
                   ),
                 ),
             ),
@@ -52,7 +55,7 @@ class RestaurantCard extends StatelessWidget {
                     const SizedBox.square(dimension: 6,),
                     Row(
                       children: [
-                        const Icon(Icons.pin_drop_rounded),
+                        const Icon(Icons.location_city_rounded),
                         const SizedBox.square(dimension: 4,),
                         Expanded(
                             child: Text(

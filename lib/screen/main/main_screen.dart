@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/screen/settings/setting_screen.dart';
+import 'package:restaurant_app/screen/search/search_screen.dart';
 
 import '../../provider/main/index_nav_provider.dart';
 import '../home/home_screen.dart';
@@ -15,7 +15,7 @@ class MainScreen extends StatelessWidget {
         builder: (context, value, child) {
           return switch (value.indexBottomNavBar) {
             0 => const HomeScreen(),
-            _ => const SettingScreen(),
+            _ => const SearchScreen(),
           };
         },
       ),
@@ -31,14 +31,11 @@ class MainScreen extends StatelessWidget {
               tooltip: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: "Settings",
-              tooltip: "Settings",
+              icon: Icon(Icons.search),
+              label: "Search",
+              tooltip: "Search",
             ),
           ],
-          backgroundColor: Colors.teal,
-          selectedItemColor: Colors.orange,
-          unselectedItemColor: Colors.orangeAccent,
       ),
     );
   }

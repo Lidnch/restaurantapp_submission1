@@ -51,14 +51,14 @@ class RestaurantTextStyles {
     fontSize: 22,
     fontWeight: FontWeight.w500,
     height: 1.2,
-    letterSpacing: 1.2,
+    letterSpacing: 1,
   );
 
   static TextStyle titleMedium = _commonStyle.copyWith(
     fontSize: 16,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     height: 1.2,
-    letterSpacing: 1.2,
+    letterSpacing: 0.7,
   );
 
   static TextStyle titleSmall = _commonStyle.copyWith(
@@ -97,13 +97,13 @@ class RestaurantTextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w200,
     height: 1.4,
-    letterSpacing: 1.3,
+    letterSpacing: 0.4,
   );
 
   static TextStyle labelSmall = _commonStyle.copyWith(
     fontSize: 11,
     fontWeight: FontWeight.w100,
     height: 1.2,
-    letterSpacing: 1.3,
+    letterSpacing: 0.2,
   );
 }

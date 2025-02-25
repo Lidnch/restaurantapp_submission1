@@ -36,8 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
             return switch (value.resultState) {
               RestaurantListLoadingState() => Center(
                 child: LoadingAnimationWidget.fourRotatingDots(
-                    color: Colors.orangeAccent,
-                    size: 55),
+                    color: Colors.orangeAccent ,
+                    size: 45),
               ),
               RestaurantListLoadedState(data: var restaurantList) => ListView.builder(
                 itemCount: restaurantList.length,

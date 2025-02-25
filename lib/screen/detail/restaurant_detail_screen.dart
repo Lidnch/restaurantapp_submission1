@@ -41,7 +41,7 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
           builder: (context, value, child) {
             return switch (value.resultState) {
               RestaurantDetailLoadingState() => Center(
-                  child: LoadingAnimationWidget.fourRotatingDots(color: Colors.white, size: 200),
+                  child: LoadingAnimationWidget.fourRotatingDots(color: Colors.orangeAccent, size: 45),
               ),
               RestaurantDetailLoadedState(data: var restaurant) =>
                   BodyOfDetailScreenWidget(restaurant: restaurant,),

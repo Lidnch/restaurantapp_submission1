@@ -1,4 +1,4 @@
-import 'package:restaurant_app/model/restaurant.dart';
+import 'package:restaurant_app/model/restaurant_list.dart';
 
 sealed class RestaurantListResultState {}
 
@@ -13,7 +13,7 @@ class RestaurantListErrorState extends RestaurantListResultState {
 }
 
 class RestaurantListLoadedState extends RestaurantListResultState {
-  final List<Restaurant> data;
+  final List<RestaurantList> data;
 
   RestaurantListLoadedState(this.data);
 }

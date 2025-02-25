@@ -1,10 +1,11 @@
-import 'package:restaurant_app/model/restaurant.dart';
+import 'dart:convert';
+import 'package:restaurant_app/model/restaurant_list.dart';
 
 class RestaurantListResponse {
   final bool error;
   final String message;
   final int count;
-  final List<Restaurant> restaurants;
+  final List<RestaurantList> restaurants;
 
   RestaurantListResponse({
     required this.error,
@@ -19,8 +20,8 @@ class RestaurantListResponse {
         message: json['message'],
         count: json['count'],
         restaurants: json['restaurants'] != null
-            ? List<Restaurant>.from(json['restaurants']!.map((x) => Restaurant.fromJson(x)))
-            : <Restaurant>[],
+            ? List<RestaurantList>.from(json['restaurants']!.map((x) => RestaurantList.fromJson(x)))
+            : <RestaurantList>[],
     );
   }
 }
