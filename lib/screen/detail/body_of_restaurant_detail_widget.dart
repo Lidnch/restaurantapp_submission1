@@ -20,12 +20,25 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
             children: [
               Hero(
                 tag: restaurant.pictureId,
-                child: Image.network(
-                    "https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}",
-                    fit:  BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  child: Image.network(
+                      "https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}",
+                      fit:  BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox.square(dimension: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                      restaurant.name,
+                      style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,22 +48,18 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              restaurant.name,
-                              style: Theme.of(context).textTheme.headlineLarge,
+                            restaurant.address,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(fontWeight: FontWeight.w400),
                           ),
                           Text(
-                              restaurant.address,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                              restaurant.city,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(fontWeight: FontWeight.w400),
+                            restaurant.city,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),

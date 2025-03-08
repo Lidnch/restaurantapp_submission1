@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:restaurant_app/model/restaurant_list.dart';
 
 class RestaurantListResponse {

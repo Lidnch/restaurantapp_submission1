@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class BookmarkScreen extends StatefulWidget {
+  const BookmarkScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<BookmarkScreen> createState() => _BookmarkScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _BookmarkScreenState extends State<BookmarkScreen> {
   @override
   void initState() {
     // TODO: implement initState

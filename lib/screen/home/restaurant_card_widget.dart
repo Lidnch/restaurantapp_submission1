@@ -55,7 +55,7 @@ class RestaurantCard extends StatelessWidget {
                     const SizedBox.square(dimension: 6,),
                     Row(
                       children: [
-                        const Icon(Icons.location_city_rounded),
+                        const Icon(Icons.pin_drop_rounded,),
                         const SizedBox.square(dimension: 4,),
                         Expanded(
                             child: Text(
