@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BookmarkScreen extends StatefulWidget {
-  const BookmarkScreen({super.key});
+class FavoriteScreen extends StatefulWidget {
+  const FavoriteScreen({super.key});
 
   @override
-  State<BookmarkScreen> createState() => _BookmarkScreenState();
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _BookmarkScreenState extends State<BookmarkScreen> {
+class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -18,7 +18,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Search"),
+        title: const Text("Favorite"),
       ),
       body: const SizedBox.square(),
     );

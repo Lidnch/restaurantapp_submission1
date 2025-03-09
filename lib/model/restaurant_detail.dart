@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:restaurant_app/model/category.dart';
 import 'package:restaurant_app/model/customer_review.dart';
 import 'package:restaurant_app/model/menus.dart';
@@ -41,5 +43,20 @@ class RestaurantDetail {
       rating: json["rating"]?.toDouble(),
       customerReviews: List<CustomerReview>.from(json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "id": id,
+      "name": name,
+      "description": description,
+      "city": city,
+      "address": address,
+      "pictureId": pictureId,
+      "categories": jsonEncode(categories),
+      "menus": jsonEncode(menus),
+      "rating": rating,
+      "customerReviews": jsonEncode(customerReviews),
+    };
   }
 }

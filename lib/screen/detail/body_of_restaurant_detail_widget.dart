@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/model/restaurant_detail.dart';
+import 'package:restaurant_app/model/restaurant_list.dart';
+import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
+import 'package:restaurant_app/screen/detail/favorite_icon_widget.dart';
 import 'package:restaurant_app/screen/detail/menus_widget.dart';
 import 'package:restaurant_app/screen/detail/review_widget.dart';
 
@@ -7,9 +11,11 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
   const BodyOfDetailScreenWidget({
     super.key,
     required this.restaurant,
+    required this.restaurantList,
   });
 
   final RestaurantDetail restaurant;
+  final RestaurantList restaurantList;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +39,16 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                      restaurant.name,
-                      style: Theme.of(context).textTheme.headlineLarge,
+                  Expanded(
+                    child: Text(
+                        restaurant.name,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                  ),
+                  Consumer<FavoriteIconProvider>(
+                      builder: (context, value, child) {
+                        return FavoriteIconWidget(restaurant: restaurantList);
+                      },
                   ),
                 ],
               ),
@@ -91,11 +104,11 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                             category.name,
                             style: Theme.of(context).textTheme.labelMedium,
                         ),
-                        labelPadding: EdgeInsets.symmetric(
+                        labelPadding: const EdgeInsets.symmetric(
                           horizontal: 4.0,
                           vertical: 0.1,
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 4.0,
                           vertical: 0.5,
                         ),
