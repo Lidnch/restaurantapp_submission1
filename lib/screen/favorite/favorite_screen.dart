@@ -46,7 +46,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         }
                     );
                   }
-              )
+              ),
             _ => const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   ],
                 ),
               )
-            }
+            };
           }
       ),
     );

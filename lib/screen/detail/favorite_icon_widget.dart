@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/model/restaurant_detail.dart';
+import 'package:restaurant_app/model/restaurant_list.dart';
 import 'package:restaurant_app/provider/favorite/local_database_provider.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
-  final RestaurantDetail restaurant;
+  final RestaurantList restaurant;
 
   const FavoriteIconWidget({
     super.key,

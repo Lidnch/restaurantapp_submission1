@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
+import 'package:restaurant_app/static/restaurant_list_result_state.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
-import 'body_of_restaurant_detail_widget.dart';
-import 'favorite_icon_widget.dart';
+import 'package:restaurant_app/screen/detail/body_of_restaurant_detail_widget.dart';
+import 'package:restaurant_app/screen/detail/favorite_icon_widget.dart';
 
 
 class RestaurantDetailScreen extends StatefulWidget {
@@ -31,6 +31,9 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
       context
           .read<RestaurantDetailProvider>()
           .fetchRestaurantDetail(widget.restaurantId.toString());
+      context
+          .read<RestaurantListProvider>()
+          .fetchRestaurantList();
     });
   }
 
@@ -42,10 +45,10 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
         actions: [
           ChangeNotifierProvider(
             create: (context) => FavoriteIconProvider(),
-            child: Consumer<RestaurantDetailProvider>(
+            child: Consumer<RestaurantListProvider>(
               builder: (context, value, child) {
                 return switch (value.resultState) {
-                  RestaurantDetailLoadedState(data: var restaurant) =>
+                  RestaurantListLoadedState(data: var restaurant) =>
                       FavoriteIconWidget(restaurant: restaurant),
                   _ => const SizedBox(),
                 };
