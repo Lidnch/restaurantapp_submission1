@@ -45,10 +45,10 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
         actions: [
           ChangeNotifierProvider(
             create: (context) => FavoriteIconProvider(),
-            child: Consumer<RestaurantListProvider>(
+            child: Consumer<RestaurantDetailProvider>(
               builder: (context, value, child) {
                 return switch (value.resultState) {
-                  RestaurantListLoadedState(data: var restaurant) =>
+                  RestaurantDetailLoadedState(data: var restaurant) =>
                       FavoriteIconWidget(restaurant: restaurant),
                   _ => const SizedBox(),
                 };
