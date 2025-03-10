@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/model/restaurant_detail.dart';
-import 'package:restaurant_app/model/restaurant_list.dart';
 import 'package:restaurant_app/screen/detail/menus_widget.dart';
 import 'package:restaurant_app/screen/detail/review_widget.dart';
 
@@ -8,11 +7,9 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
   const BodyOfDetailScreenWidget({
     super.key,
     required this.restaurant,
-    this.restaurantList,
   });
 
   final RestaurantDetail restaurant;
-  final RestaurantDetail? restaurantList;
 
   @override
   Widget build(BuildContext context) {

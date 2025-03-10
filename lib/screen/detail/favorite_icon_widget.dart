@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/model/restaurant_detail.dart';
-import 'package:restaurant_app/provider/bookmark/local_database_provider.dart';
+import 'package:restaurant_app/provider/favorite/local_database_provider.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
@@ -38,14 +38,16 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     return IconButton(
         onPressed: () async {
           final localDatabaseProvider = context.read<LocalDatabaseProvider>();
-          final bookmarkIconProvider = context.read<FavoriteIconProvider>();
-          final isBookmarked = bookmarkIconProvider.isFavorite;
+          final favoriteIconProvider = context.read<FavoriteIconProvider>();
+          final isFavorite = favoriteIconProvider.isFavorite;
 
-          if(isBookmarked) {
+          if(isFavorite) {
             await localDatabaseProvider.removeRestaurantValueById(widget.restaurant.id);
           } else {
             await localDatabaseProvider.saveRestaurantValue(widget.restaurant);
           }
+          favoriteIconProvider.isFavorite = !isFavorite;
+          localDatabaseProvider.loadAllRestaurantValue();
         },
         icon: Icon(
             context.watch<FavoriteIconProvider>().isFavorite
