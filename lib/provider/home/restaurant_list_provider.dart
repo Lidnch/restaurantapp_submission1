@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/model/restaurant_list.dart';
 import 'package:restaurant_app/static/restaurant_list_result_state.dart';
 
 class RestaurantListProvider extends ChangeNotifier {
@@ -8,8 +9,10 @@ class RestaurantListProvider extends ChangeNotifier {
   RestaurantListProvider(this._apiServices);
 
   RestaurantListResultState _resultState = RestaurantListNoneState();
+  List<RestaurantList> _restaurants = [];
 
   RestaurantListResultState get resultState => _resultState;
+  List<RestaurantList> get restaurants => _restaurants;
 
   Future<void> fetchRestaurantList() async {
     try {

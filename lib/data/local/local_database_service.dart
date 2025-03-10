@@ -1,4 +1,4 @@
-import 'package:restaurant_app/model/restaurant_list.dart';
+import 'package:restaurant_app/model/restaurant_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
 class LocalDatabaseService {
@@ -9,10 +9,11 @@ class LocalDatabaseService {
   Future<void> createTables(Database database) async {
     await database.execute(
       """CREATE TABLE $_tableName(
-        id INTEGER PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         name TEXT,
         city TEXT,
         pictureId TEXT,
+        address TEXT,
         rating REAL
       )
       """,
@@ -29,10 +30,17 @@ class LocalDatabaseService {
     );
   }
 
-  Future<int> insertItem(RestaurantList restaurant) async {
+  Future<int> insertItem(RestaurantDetail restaurant) async {
     final db = await _initializeDb();
 
-    final data = restaurant.toJson();
+    final data = {
+      'id': restaurant.id,
+      'name': restaurant.name,
+      'city': restaurant.city,
+      'pictureId': restaurant.pictureId,
+      'address': restaurant.address,
+      'rating': restaurant.rating
+    };
     final id = await db.insert(
       _tableName,
       data,
@@ -41,19 +49,19 @@ class LocalDatabaseService {
     return id;
   }
 
-  Future<List<RestaurantList>> getAllItems() async {
+  Future<List<RestaurantDetail>> getAllItems() async {
     final db = await _initializeDb();
     final results = await db.query(_tableName);
 
-    return results.map((result) => RestaurantList.fromJson(result)).toList();
+    return results.map((result) => RestaurantDetail.fromJson(result)).toList();
   }
 
-  Future<RestaurantList> getItemById(String id) async {
+  Future<RestaurantDetail> getItemById(String id) async {
     final db = await _initializeDb();
     final results =
     await db.query(_tableName, where: "id = ?", whereArgs: [id], limit: 1);
 
-    return results.map((result) => RestaurantList.fromJson(result)).first;
+    return results.map((result) => RestaurantDetail.fromJson(result)).first;
   }
 
   Future<int> removeItem(String id) async {

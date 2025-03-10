@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:restaurant_app/data/local/local_database_service.dart';
-import 'package:restaurant_app/model/restaurant_list.dart';
+import 'package:restaurant_app/model/restaurant_detail.dart';
 
 class LocalDatabaseProvider extends ChangeNotifier {
   final LocalDatabaseService _service;
@@ -10,13 +10,13 @@ class LocalDatabaseProvider extends ChangeNotifier {
   String _message = "";
   String get message => _message;
 
-  List<RestaurantList>? _restaurantList;
-  List<RestaurantList>? get restaurantList => _restaurantList;
+  List<RestaurantDetail>? _restaurantList;
+  List<RestaurantDetail>? get restaurantList => _restaurantList;
 
-  RestaurantList? _restaurant;
-  RestaurantList? get restaurant => _restaurant;
+  RestaurantDetail? _restaurant;
+  RestaurantDetail? get restaurant => _restaurant;
 
-  Future<void> saveRestaurantValue(RestaurantList value) async {
+  Future<void> saveRestaurantValue(RestaurantDetail value) async {
     try {
       final result = await _service.insertItem(value);
 

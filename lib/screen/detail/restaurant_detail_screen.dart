@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
+import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -38,21 +39,21 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Restaurant Detail"),
-      ),
-      actions: [
-        ChangeNotifierProvider(
-          create: (context) => FavoriteIconProvider(),
-          child: Consumer<RestaurantDetailProvider>(
-            builder: (context, value, child) {
-              return switch (value.resultState) {
-                RestaurantDetailLoadedState(data: var tourism) =>
-                    FavoriteIconWidget(restaurant: restaurant),
-                _ => const SizedBox(),
-              };
-            },
+        actions: [
+          ChangeNotifierProvider(
+            create: (context) => FavoriteIconProvider(),
+            child: Consumer<RestaurantDetailProvider>(
+              builder: (context, value, child) {
+                return switch (value.resultState) {
+                  RestaurantDetailLoadedState(data: var restaurant) =>
+                      FavoriteIconWidget(restaurant: restaurant),
+                  _ => const SizedBox(),
+                };
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
       body: Consumer<RestaurantDetailProvider>(
           builder: (context, value, child) {
             return switch (value.resultState) {
@@ -60,7 +61,7 @@ class _DetailScreenState extends State<RestaurantDetailScreen> {
                   child: LoadingAnimationWidget.fourRotatingDots(color: Colors.orangeAccent, size: 45),
               ),
               RestaurantDetailLoadedState(data: var restaurant) =>
-                  BodyOfDetailScreenWidget(restaurant: restaurant),
+                  BodyOfDetailScreenWidget(restaurant: restaurant,),
               RestaurantDetailErrorState(error: var message) => Center(
                 child: Text(message),
               ),

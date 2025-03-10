@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurant_app/model/restaurant_detail.dart';
 import 'package:restaurant_app/model/restaurant_list.dart';
-import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
-import 'package:restaurant_app/screen/detail/favorite_icon_widget.dart';
 import 'package:restaurant_app/screen/detail/menus_widget.dart';
 import 'package:restaurant_app/screen/detail/review_widget.dart';
 
@@ -11,11 +8,11 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
   const BodyOfDetailScreenWidget({
     super.key,
     required this.restaurant,
-    required this.restaurantList,
+    this.restaurantList,
   });
 
   final RestaurantDetail restaurant;
-  final RestaurantList restaurantList;
+  final RestaurantDetail? restaurantList;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +42,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
-                  Consumer<FavoriteIconProvider>(
-                      builder: (context, value, child) {
-                        return FavoriteIconWidget(restaurant: restaurantList);
-                      },
-                  ),
-                ],
+              ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
