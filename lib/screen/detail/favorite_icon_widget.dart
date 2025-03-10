@@ -48,7 +48,6 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
             final restaurantFavorite = RestaurantList(
                 id: widget.restaurant.id,
                 name: widget.restaurant.name,
-                description: widget.restaurant.description,
                 pictureId: widget.restaurant.pictureId,
                 city: widget.restaurant.city,
                 rating: widget.restaurant.rating);
