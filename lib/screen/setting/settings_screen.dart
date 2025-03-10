@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/screen/setting/app_theme_switch_widget.dart';
+import 'package:restaurant_app/screen/setting/notification_switch_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -12,31 +14,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "Restaurant Notification",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    Text(
-                        "Enable notification",
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                  ],
-                ),
-                Placeholder(),
-              ],
-            ),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            NotificationSwitchWidget(),
+            const SizedBox.square(dimension: 16,),
+            AppThemeSwitchWidget(),
+          ],
+        ),
       ),
     );
   }

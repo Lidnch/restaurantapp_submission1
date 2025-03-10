@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/service/api/api_services.dart';
 import 'package:restaurant_app/model/menus.dart';
 import 'package:restaurant_app/model/restaurant_detail.dart';
 import 'package:restaurant_app/model/restaurant_detail_response.dart';
