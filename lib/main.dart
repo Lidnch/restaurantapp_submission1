@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/notification/local_notification_provider.dart';
 import 'package:restaurant_app/service/api/api_services.dart';
 import 'package:restaurant_app/service/local/local_database_service.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
@@ -10,13 +11,29 @@ import 'package:restaurant_app/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app/provider/style/theme_provider.dart';
 import 'package:restaurant_app/screen/detail/restaurant_detail_screen.dart';
 import 'package:restaurant_app/screen/main/main_screen.dart';
+import 'package:restaurant_app/service/local/local_notification_service.dart';
 import 'package:restaurant_app/static/nav_route.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final notificationAppLaunchDetails =
+  await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+  String route = NavigationRoute.mainRoute.name;
+  String? payload;
+
+  if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+    final notificationResponse =
+        notificationAppLaunchDetails!.notificationResponse;
+    route = NavigationRoute.detailRoute.name;
+    payload = notificationResponse?.payload;
+  }
+
   runApp(
     MultiProvider(
         providers: [
-          ChangeNotifierProvider(
+           ChangeNotifierProvider(
               create: (context) => IndexNavProvider(),
           ),
           Provider(
@@ -45,6 +62,16 @@ void main() {
           ),
           ChangeNotifierProvider(
             create: (context) => FavoriteIconProvider(),
+          ),
+          Provider(
+              create: (context) => LocalNotificationService()
+                ..init()
+                ..configureLocalTimeZone(),
+          ),
+          ChangeNotifierProvider(
+              create: (context) => LocalNotificationProvider(
+                  context.read<LocalNotificationService>(),
+              )..requestPermissions(),
           ),
         ],
       child: const MainApp(),

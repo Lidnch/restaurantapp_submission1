@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/notification/local_notification_provider.dart';
 
 class NotificationSwitchWidget extends StatefulWidget {
 
-  NotificationSwitchWidget({super.key});
+  const NotificationSwitchWidget({super.key});
 
   @override
   State<NotificationSwitchWidget> createState() => _NotificationSwitchWidgetState();
 }
 
 class _NotificationSwitchWidgetState extends State<NotificationSwitchWidget> {
+  bool isEnabled = false;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<LocalNotificationProvider>();
+      provider.checkPendingNotificationRequests(context).then((_) {
+        if(provider.pendingNotificationRequest.isNotEmpty) {
+          setState(() {
+            isEnabled = true;
+          });
+        }
+      });
+    });
   }
-  bool isEnabled = true;
+
 
   @override
   Widget build(BuildContext context) {
+    final notificationProvider = context.read<LocalNotificationProvider>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +54,6 @@ class _NotificationSwitchWidgetState extends State<NotificationSwitchWidget> {
           ),
         ),
         Switch(
-
             value: isEnabled,
             onChanged: (value) {
                setState(() {
