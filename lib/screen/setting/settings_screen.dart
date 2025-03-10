@@ -17,8 +17,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-
+          Expanded(
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Restaurant Notification",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    Text(
+                        "Enable notification",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ],
+                ),
+                Placeholder(),
+              ],
+            ),
           ),
         ],
       ),

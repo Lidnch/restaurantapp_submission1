@@ -1,4 +1,3 @@
-import 'package:restaurant_app/model/restaurant_detail.dart';
 import 'package:restaurant_app/model/restaurant_list.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -31,7 +30,7 @@ class LocalDatabaseService {
     );
   }
 
-  Future<int> insertItem(RestaurantDetail restaurant) async {
+  Future<int> insertItem(RestaurantList restaurant) async {
     final db = await _initializeDb();
 
     final data = {
@@ -49,19 +48,19 @@ class LocalDatabaseService {
     return id;
   }
 
-  Future<List<RestaurantDetail>> getAllItems() async {
+  Future<List<RestaurantList>> getAllItems() async {
     final db = await _initializeDb();
     final results = await db.query(_tableName);
 
-    return results.map((result) => RestaurantDetail.fromJson(result)).toList();
+    return results.map((result) => RestaurantList.fromJson(result)).toList();
   }
 
-  Future<RestaurantDetail> getItemById(String id) async {
+  Future<RestaurantList> getItemById(String id) async {
     final db = await _initializeDb();
     final results =
     await db.query(_tableName, where: "id = ?", whereArgs: [id], limit: 1);
 
-    return results.map((result) => RestaurantDetail.fromJson(result)).first;
+    return results.map((result) => RestaurantList.fromJson(result)).first;
   }
 
   Future<int> removeItem(String id) async {
