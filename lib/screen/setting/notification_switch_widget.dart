@@ -41,9 +41,9 @@ class NotificationSwitchWidget extends StatelessWidget {
                 await localNotificationProvider.cancelAllNotification();
               }
 
-              await _saveReminderStatus(value);
+              value = !value;
 
-              (context as Element).markNeedsBuild();
+              await _saveReminderStatus(value);
             },
           );
         }),

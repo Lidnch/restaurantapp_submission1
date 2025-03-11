@@ -20,8 +20,6 @@ class LocalNotificationProvider extends ChangeNotifier {
     } else {
       scheduleDailyElevenAMNotification();
     }
-
-    _sa
   }
 
   Future<void> requestPermissions() async {

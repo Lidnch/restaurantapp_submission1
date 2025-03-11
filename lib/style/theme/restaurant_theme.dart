@@ -6,7 +6,7 @@ class RestaurantTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      colorSchemeSeed: RestaurantColors.gold.color,
+      colorSchemeSeed: RestaurantColors.blue.color,
       brightness: Brightness.light,
       textTheme: _textTheme,
       appBarTheme: _appBarTheme,
@@ -16,10 +16,10 @@ class RestaurantTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
-      colorSchemeSeed: RestaurantColors.gold.color,
+      colorSchemeSeed: RestaurantColors.yellow.color,
       brightness: Brightness.dark,
       textTheme: _textTheme,
-      appBarTheme: _appBarTheme,
+      appBarTheme: _darkAppBarTheme,
     );
   }
 
@@ -46,6 +46,15 @@ class RestaurantTheme {
   static AppBarTheme get _appBarTheme {
     return AppBarTheme(
       toolbarTextStyle: _textTheme.titleLarge,
+      foregroundColor: RestaurantColors.yellow.color,
+      backgroundColor: RestaurantColors.blue.color,
+    );
+  }
+
+  static AppBarTheme get _darkAppBarTheme {
+    return AppBarTheme(
+      toolbarTextStyle: _textTheme.titleLarge,
+      foregroundColor: RestaurantColors.blue.color,
     );
   }
 
