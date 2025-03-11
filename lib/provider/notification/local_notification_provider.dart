@@ -6,7 +6,9 @@ class LocalNotificationProvider extends ChangeNotifier {
   final LocalNotificationService flutterNotificationService;
   static const String _stateKey = "isEnabled";
 
-  LocalNotificationProvider(this.flutterNotificationService);
+  LocalNotificationProvider(this.flutterNotificationService) {
+    _loadReminder();
+  }
 
   int _notificationId = 0;
   bool? _permission = false;
@@ -16,10 +18,13 @@ class LocalNotificationProvider extends ChangeNotifier {
   bool get isEnabled => _isEnabled;
 
   void toggleReminder() {
+    _loadReminder();
     _isEnabled = !_isEnabled;
-    isEnabled
+    _isEnabled
         ? scheduleDailyElevenAMNotification()
         : cancelAllNotification();
+
+    _saveReminder(_isEnabled);
     notifyListeners();
   }
 
@@ -33,7 +38,6 @@ class LocalNotificationProvider extends ChangeNotifier {
     flutterNotificationService.scheduleDailyElevenAMNotification(
       id: _notificationId,
     );
-    _isEnabled = true;
   }
 
   Future<void> cancelAllNotification() async {

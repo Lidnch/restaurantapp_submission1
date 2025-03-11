@@ -49,9 +49,9 @@ class RestaurantTextStyles {
 
   static TextStyle titleLarge = _commonStyle.copyWith(
     fontSize: 22,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
     height: 1.2,
-    letterSpacing: 1,
+    letterSpacing: 0.5,
   );
 
   static TextStyle titleMedium = _commonStyle.copyWith(
