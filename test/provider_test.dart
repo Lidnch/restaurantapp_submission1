@@ -48,9 +48,12 @@ void main() {
       when(() => mockApiServices.getRestaurantList())
           .thenAnswer((_) async => mockRestaurants);
 
-      await provider.fetchRestaurantList();
+      final future = provider.fetchRestaurantList();
+      expect(provider.resultState, isA<RestaurantListLoadingState>());
+      await future;
 
       expect(provider.resultState, isA<RestaurantListLoadedState>());
+      expect(provider.restaurants, mockRestaurants.restaurants);
     });
 
     test('Fetching restaurant list should update state to Error when failed', () async {

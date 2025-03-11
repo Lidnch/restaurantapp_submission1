@@ -25,6 +25,7 @@ class RestaurantListProvider extends ChangeNotifier {
         _resultState = RestaurantListErrorState(result.message);
         notifyListeners();
       } else {
+        _restaurants = result.restaurants;
         _resultState = RestaurantListLoadedState(result.restaurants);
         notifyListeners();
       }
