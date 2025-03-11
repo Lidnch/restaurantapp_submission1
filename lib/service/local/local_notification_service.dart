@@ -1,11 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:restaurant_app/model/received_notification.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
+
+final StreamController<ReceivedNotification> didReceiveLocalNotificationStream =
+  StreamController<ReceivedNotification>.broadcast();
+
+final StreamController<String?> selectNotificationStream =
+  StreamController<String>.broadcast();
 
 class LocalNotificationService {
 
@@ -21,7 +30,7 @@ class LocalNotificationService {
       onDidReceiveNotificationResponse: (notificationResponse) {
         final payload = notificationResponse.payload;
         if (payload != null && payload.isNotEmpty) {
-
+          selectNotificationStream.add(payload);
         }
       }
     );
@@ -75,7 +84,7 @@ class LocalNotificationService {
   tz.TZDateTime _nextInstanceofElevenAM() {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate =
-    tz.TZDateTime(tz.local, now.year, now.month, now.day, 11);
+    tz.TZDateTime(tz.local, now.year, now.month, now.day, 7, 36);
 
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
@@ -110,18 +119,12 @@ class LocalNotificationService {
         notificationDetails,
         uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.wallClockTime,
-        matchDateTimeComponents: DateTimeComponents.time,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        matchDateTimeComponents: DateTimeComponents.time,
     );
   }
 
-  Future<List<PendingNotificationRequest>> pendingNotificationRequests() async {
-    final List<PendingNotificationRequest> pendingNotificationRequests =
-    await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-    return pendingNotificationRequests;
-  }
-
-  Future<void> cancelNotification(int id) async {
-    await flutterLocalNotificationsPlugin.cancel(id);
+  Future<void> cancelAllNotification() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 }

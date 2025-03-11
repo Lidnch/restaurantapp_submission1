@@ -9,7 +9,10 @@ class LocalNotificationProvider extends ChangeNotifier {
 
   int _notificationId = 0;
   bool? _permission = false;
+  bool _isInitialized = false;
+
   bool? get permission => _permission;
+  bool get isInitialized => _isInitialized;
 
   List<PendingNotificationRequest> pendingNotificationRequest = [];
 
@@ -25,13 +28,7 @@ class LocalNotificationProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> checkPendingNotificationRequests(BuildContext context) async {
-    pendingNotificationRequest =
-    await flutterNotificationService.pendingNotificationRequests();
-    notifyListeners();
-  }
-
-  Future<void> cancelNotification(int id) async {
-    await flutterNotificationService.cancelNotification(id);
+  Future<void> cancelAllNotification() async {
+    await flutterNotificationService.cancelAllNotification();
   }
 }

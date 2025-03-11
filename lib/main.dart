@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/notification/local_notification_provider.dart';
+import 'package:restaurant_app/provider/notification/payload_provider.dart';
 import 'package:restaurant_app/service/api/api_services.dart';
 import 'package:restaurant_app/service/local/local_database_service.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
@@ -72,6 +73,11 @@ void main() async{
               create: (context) => LocalNotificationProvider(
                   context.read<LocalNotificationService>(),
               )..requestPermissions(),
+          ),
+          ChangeNotifierProvider(
+              create: (context) => PayloadProvider(
+                payload: payload,
+              ),
           ),
         ],
       child: const MainApp(),
