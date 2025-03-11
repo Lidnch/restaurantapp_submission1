@@ -53,6 +53,7 @@ class LocalDatabaseProvider extends ChangeNotifier {
       _message = "Your data is loaded";
       notifyListeners();
     } catch (e) {
+      _restaurant = null;
       _message = "Failed to load your data";
       notifyListeners();
     }
