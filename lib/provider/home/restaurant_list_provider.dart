@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/service/api/api_services.dart';
 import 'package:restaurant_app/model/restaurant_list.dart';
@@ -30,7 +32,7 @@ class RestaurantListProvider extends ChangeNotifier {
         notifyListeners();
       }
     } on Exception catch(e) {
-      _resultState = RestaurantListErrorState(e.toString());
+      _resultState = RestaurantListErrorState("Failed to load list.");
       notifyListeners();
     }
   }

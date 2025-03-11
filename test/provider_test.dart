@@ -29,7 +29,7 @@ void main() {
       expect(provider.resultState, isA<RestaurantListNoneState>());
     });
 
-    test('Fetching restaurant list should update state to Loaded', () async {
+    test('Fetching restaurant list should update state to Loading, then to Loaded when successful', () async {
       final mockRestaurants = RestaurantListResponse(
           error: false,
           message: "Success",
@@ -78,7 +78,7 @@ void main() {
       expect(provider.resultState, isA<RestaurantDetailNoneState>());
     });
 
-    test('Fetching restaurant detail should update state to Loaded', () async {
+    test('Fetching restaurant detail should update state to Loading, then to Loaded when successful', () async {
       final mockDetailResponse = RestaurantDetailResponse(
           error: false,
           message: "Success",
@@ -99,9 +99,12 @@ void main() {
       when(() => mockApiServices.getRestaurantDetail("1"))
           .thenAnswer((_) async => mockDetailResponse);
 
-      await provider.fetchRestaurantDetail("1");
+      final future = provider.fetchRestaurantDetail("1");
+      expect(provider.resultState, isA<RestaurantDetailLoadingState>());
+      await future;
 
       expect(provider.resultState, isA<RestaurantDetailLoadedState>());
+      expect(provider.restaurantDetail, equals(mockDetailResponse.restaurant));
     });
 
     test('Fetching restaurant detail should update state to Error when failed', () async {
