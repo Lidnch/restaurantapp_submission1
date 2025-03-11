@@ -84,7 +84,7 @@ class LocalNotificationService {
   tz.TZDateTime _nextInstanceofElevenAM() {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate =
-    tz.TZDateTime(tz.local, now.year, now.month, now.day, 11);
+    tz.TZDateTime(tz.local, now.year, now.month, now.day, 16, 36);
 
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
@@ -95,7 +95,7 @@ class LocalNotificationService {
   Future<void> scheduleDailyElevenAMNotification({
     required int id,
     String channelId = "1",
-    String channelName = "Lunch Daily Reminder",
+    String channelName = "Restaurant App",
   }) async {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
         channelId,
@@ -118,7 +118,7 @@ class LocalNotificationService {
         datetimeSchedule,
         notificationDetails,
         uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.wallClockTime,
+        UILocalNotificationDateInterpretation.absoluteTime,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         matchDateTimeComponents: DateTimeComponents.time,
     );

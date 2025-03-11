@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/notification/local_notification_provider.dart';
-import 'package:restaurant_app/provider/notification/payload_provider.dart';
-import 'package:restaurant_app/provider/shared_preferences_provider.dart';
 import 'package:restaurant_app/service/api/api_services.dart';
 import 'package:restaurant_app/service/local/local_database_service.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
@@ -14,8 +12,8 @@ import 'package:restaurant_app/provider/style/theme_provider.dart';
 import 'package:restaurant_app/screen/detail/restaurant_detail_screen.dart';
 import 'package:restaurant_app/screen/main/main_screen.dart';
 import 'package:restaurant_app/service/local/local_notification_service.dart';
-import 'package:restaurant_app/service/local/shared_preferences_service.dart';
 import 'package:restaurant_app/static/nav_route.dart';
+import 'package:restaurant_app/style/theme/restaurant_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
@@ -38,14 +36,6 @@ void main() async{
   runApp(
     MultiProvider(
         providers: [
-          Provider(
-              create: (context) => SharedPreferencesService(prefs),
-          ),
-          ChangeNotifierProvider(
-              create: (context) => SharedPreferencesProvider(
-                  context.read<SharedPreferencesService>(),
-              ),
-          ),
           ChangeNotifierProvider(
               create: (context) => IndexNavProvider(),
           ),
@@ -86,11 +76,6 @@ void main() async{
                   context.read<LocalNotificationService>(),
               )..requestPermissions(),
           ),
-          ChangeNotifierProvider(
-              create: (context) => PayloadProvider(
-                payload: payload,
-              ),
-          ),
         ],
       child: const MainApp(),
     ),
@@ -106,7 +91,9 @@ class MainApp extends StatelessWidget {
       builder: (context, themeProvider, child) {
         return MaterialApp(
           title: 'Restaurant App',
-          theme: themeProvider.theme,
+          theme: RestaurantTheme.lightTheme,
+          darkTheme: RestaurantTheme.darkTheme,
+          themeMode: themeProvider.themeMode,
           initialRoute: NavigationRoute.mainRoute.name,
           routes: {
             NavigationRoute.mainRoute.name: (context) => const MainScreen(),

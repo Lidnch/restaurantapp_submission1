@@ -30,23 +30,12 @@ class NotificationSwitchWidget extends StatelessWidget {
             ],
           ),
         ),
-        Consumer<LocalNotificationProvider>(
-          builder: (context, value, child){
-          return Switch(
-            value: localNotificationProvider.isEnabled,
-            onChanged: (bool value) async {
-              if (value) {
-               localNotificationProvider.scheduleDailyElevenAMNotification();
-              } else {
-                await localNotificationProvider.cancelAllNotification();
-              }
-
-              value = !value;
-
-              await _saveReminderStatus(value);
-            },
-          );
-        }),
+        Switch(
+          value: localNotificationProvider.isEnabled,
+          onChanged: (bool value) async {
+            localNotificationProvider.toggleReminder();
+          },
+        ),
       ],
     );
   }
