@@ -10,55 +10,44 @@ class NotificationSwitchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final localNotificationProvider = Provider.of<LocalNotificationProvider>(context);
 
-    return FutureBuilder<bool>(
-      future: _getReminderStatus(),
-      builder: (context, snapshot) {
-        bool isReminderOn = snapshot.data ?? false;
-
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Daily Reminder',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text(
-                    'Lunch reminder every day at 11:00 AM',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Daily Reminder',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-            Switch(
-              value: isReminderOn,
-              onChanged: (bool value) async {
-                if (!(localNotificationProvider.permission ?? false)) {
-                  await localNotificationProvider.requestPermissions();
-                  if (!(localNotificationProvider.permission ?? false)) {
-                    return;
-                  }
-                }
+              Text(
+                'Lunch reminder every day at 11:00 AM',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+        ),
+        Consumer<LocalNotificationProvider>(
+          builder: (context, value, child){
+          return Switch(
+            value: localNotificationProvider.isEnabled,
+            onChanged: (bool value) async {
+              if (value) {
+               localNotificationProvider.scheduleDailyElevenAMNotification();
+              } else {
+                await localNotificationProvider.cancelAllNotification();
+              }
 
-                await _saveReminderStatus(value);
+              await _saveReminderStatus(value);
 
-                if (value) {
-                  localNotificationProvider.scheduleDailyElevenAMNotification();
-                } else {
-                  await localNotificationProvider.cancelAllNotification();
-                }
-
-                (context as Element).markNeedsBuild();
-              },
-            ),
-          ],
-        );
-      },
+              (context as Element).markNeedsBuild();
+            },
+          );
+        }),
+      ],
     );
   }
 

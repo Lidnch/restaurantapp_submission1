@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app/service/local/local_notification_service.dart';
 
 class LocalNotificationProvider extends ChangeNotifier {
@@ -9,12 +8,21 @@ class LocalNotificationProvider extends ChangeNotifier {
 
   int _notificationId = 0;
   bool? _permission = false;
-  bool _isInitialized = false;
+  bool _isEnabled = false;
 
   bool? get permission => _permission;
-  bool get isInitialized => _isInitialized;
+  bool get isEnabled => _isEnabled;
 
-  List<PendingNotificationRequest> pendingNotificationRequest = [];
+  void toggleReminder() {
+    _isEnabled = !_isEnabled;
+    if(_isEnabled) {
+      cancelAllNotification();
+    } else {
+      scheduleDailyElevenAMNotification();
+    }
+
+    _sa
+  }
 
   Future<void> requestPermissions() async {
     _permission = await flutterNotificationService.requestPermissions();
@@ -26,6 +34,7 @@ class LocalNotificationProvider extends ChangeNotifier {
     flutterNotificationService.scheduleDailyElevenAMNotification(
       id: _notificationId,
     );
+    _isEnabled = true;
   }
 
   Future<void> cancelAllNotification() async {

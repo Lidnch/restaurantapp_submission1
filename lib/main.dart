@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/notification/local_notification_provider.dart';
 import 'package:restaurant_app/provider/notification/payload_provider.dart';
+import 'package:restaurant_app/provider/shared_preferences_provider.dart';
 import 'package:restaurant_app/service/api/api_services.dart';
 import 'package:restaurant_app/service/local/local_database_service.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
@@ -13,10 +14,13 @@ import 'package:restaurant_app/provider/style/theme_provider.dart';
 import 'package:restaurant_app/screen/detail/restaurant_detail_screen.dart';
 import 'package:restaurant_app/screen/main/main_screen.dart';
 import 'package:restaurant_app/service/local/local_notification_service.dart';
+import 'package:restaurant_app/service/local/shared_preferences_service.dart';
 import 'package:restaurant_app/static/nav_route.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
 
   final notificationAppLaunchDetails =
   await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
@@ -34,7 +38,15 @@ void main() async{
   runApp(
     MultiProvider(
         providers: [
-           ChangeNotifierProvider(
+          Provider(
+              create: (context) => SharedPreferencesService(prefs),
+          ),
+          ChangeNotifierProvider(
+              create: (context) => SharedPreferencesProvider(
+                  context.read<SharedPreferencesService>(),
+              ),
+          ),
+          ChangeNotifierProvider(
               create: (context) => IndexNavProvider(),
           ),
           Provider(
